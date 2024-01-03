@@ -1,0 +1,27 @@
+.value_input {
+  width: 48px;
+  height: 26px;
+  border-color: orange;
+}
+
+.slice_values > p ,.genome_container > p {
+  margin: 0;
+  height: 30px;
+  border: 1px solid gray;
+}
+
+.slice_values {
+  display: flex;
+  flex-direction: column;
+}
+
+.genome_container {
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  display: grid;
+  grid-template-columns: repeat(16, auto);
+}
+
+.main_div {
+  display: flex;
+}

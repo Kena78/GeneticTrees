@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/my.css">
+    <meta name="description" content="">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#fafafa">
+    <script id="vertex-shader" type="x-shader/x-vertex">attribute vec4 a_position;
+    attribute vec4 a_color;
+
+    varying vec4 v_color;
+
+    uniform mat3 u_matrix;
+    uniform float u_matrix2[9];
+
+    void main() {
+      v_color=a_color;
+      vec4 pos=a_position;
+      pos.z=1.0;
+      // Multiply the position by the matrix.
+      gl_Position =vec4(u_matrix*pos.xyz, 1.0);
+
+    }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+      precision highp float;
+
+      varying vec4 v_color;
+      uniform vec4 u_color;
+
+      void main() {
+        vec4 c=v_color*u_color;
+        gl_FragColor = vec4(c.rgb,1.0);
+      }
+    </script>
+    <script src="js/test.js"></script>
+    <script src="js/utils/random.js"></script>
+    <script src="js/utils/NumberUtils.js"></script>
+    <script src="js/graphics/primitives.js"></script>
+    <script src="js/graphics/Camera.js"></script>
+    <script src="js/graphics/color.js"></script>
+    <script src="js/utils/vectors.js"></script>
+    <script src="js/utils/matrix_utils.js"></script>
+    <script src="js/graphics/gl_shader.js"></script>
+        <script src="js/gl_extra.js"></script>
+    <script src="js/genome.js"></script>
+  </head>
+
+  <body onload="startWebGl()">
+    <div class="main_div">
+      <canvas id="glcanvas" width="1920" height="1080" style="background: gray">
+        Your browser doesn't appear to support the HTML5
+        <code>&lt;canvas&gt;</code> element.
+      </canvas>
+      <div>
+        <button onclick="drawRandom()">generate random</button>
+        <button onclick="fixDownUp()">fixDownUp</button>
+        <button onclick="redraw()">redraw</button>
+        <button onclick="copyGenome()">copy genome</button>
+        <button onclick="pasteGenome()">paste genome</button>
+        <button onclick="mixGenomeFromClipboard()">combine genome with clipboard</button>
+        <label for="layer-amount">Layers</label><input type="text" id="layer-amount" value="1">
+        <div id="genome_container" class="genome_container" onload="">
+          <script>setupCells()</script>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
